@@ -31,8 +31,8 @@ def fail(message: str) -> None:
 
 def main() -> None:
     essays = json.loads(DATA_PATH.read_text(encoding="utf-8"))
-    if len(essays) != 7:
-        fail(f"expected 7 essays, found {len(essays)}")
+    if len(essays) < 1:
+        fail("expected at least 1 essay")
 
     slugs = set()
     for essay in essays:
@@ -64,8 +64,8 @@ def main() -> None:
     if language != "en":
         fail(f"feed language is {language!r}, expected 'en'")
     items = channel.findall("item")
-    if len(items) != 7:
-        fail(f"feed expected 7 items, found {len(items)}")
+    if len(items) != len(essays):
+        fail(f"feed expected {len(essays)} items, found {len(items)}")
     for item in items:
         for field in ("title", "link", "guid", "pubDate", "description"):
             if not item.findtext(field):

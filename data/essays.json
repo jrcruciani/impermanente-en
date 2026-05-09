@@ -1,5 +1,25 @@
 [
   {
+    "slug": "the-jihad-was-not-against-the-machines",
+    "title_es": "La Jihad no era contra las máquinas",
+    "title_en": "The Jihad Was Not Against the Machines",
+    "source_url": "https://impermanente.es/2026/05/07/la-jihad-no-era-contra.html",
+    "published_at": "2026-05-07T17:02:42+02:00",
+    "summary": "Dune's Butlerian Jihad is not a warning against machines, but against surrender: the human habit of letting opaque intermediaries think on our behalf.",
+    "tags": ["AI", "Dune", "delegation", "digital sovereignty"],
+    "body": [
+      "The sentence appears early in Dune: \"thou shalt not make a machine in the likeness of a human mind.\" Almost everyone reads it as a technological prohibition, as if Frank Herbert had imagined a hippie future without computers. It is a comfortable and rather lazy reading. What the Butlerian commandment forbids is not the machine. It is abdication.",
+      "The Jihad, according to the texts, does not destroy only thinking machines. It also destroys, and above all, the human caste that had made itself indispensable by operating them. They were the ones in charge, not the silicon servants. The machines were the technical pretext for a concentration of power that could not be sustained otherwise. Breaking them also meant breaking the monopoly over who was allowed to think on behalf of everyone else. Everything that came afterwards in the Dune universe, the mentat schools, Bene Gesserit discipline, the Navigators, are human technologies designed not to depend again on an opaque intermediary. It is a political response, not a Luddite one.",
+      "Sixty years later, without having read Herbert or having read him badly, three authors have reached the same observation by different paths. It is worth putting them in a row because they fit together like a mechanism.",
+      "Shoshana Zuboff was the first to describe the economic machinery. Surveillance Capitalism is not about privacy; it is about asymmetry. One side of the exchange knows what the other is going to do before that person does, and that difference is monetised. What you delegate is not a service, but the raw material on which a new power lives. When that same infrastructure starts suggesting your words, the asymmetry stops being about your behaviour and becomes about your thought. You are no longer only the product. You are also the script.",
+      "Byung-Chul Han adds the psychopolitical angle. In Infocracy and in his short texts on AI he insists on something uncomfortable: the current regime does not forbid you anything, it spares you. The neoliberal subject self-exploits by delegating because he confuses delegation with liberation. AI is the culmination of that movement. Nobody forces you to use it, just as nobody forces you to optimise yourself. Obedience has become frictionless, and for that reason it is deeper. Herbert saw it that way too: in his universe, machines did not enslave anyone by force. People handed over parts of themselves until there was no one left on the other side of the decision.",
+      "Bernard Stiegler closes the picture with the missing word: proletarianisation. Every time knowledge is externalised to a machine without being internalised again, that knowledge is lost. Nineteenth-century industry proletarianised the worker's body; it took away the craft. Twentieth-century industry proletarianised the consumer; it took away savoir-vivre. The current one proletarianises the person who designs and the person who thinks. And here is the hard point: the loss does not belong only to the one who delegates. It is structural. Society as a whole is left with fewer people capable of doing what several generations before them knew how to do, and depends more and more on the small caste that does know how to operate the system. Herbert's Jihad, read this way, is a rebellion against the terminal proletarianisation of the mind.",
+      "I have realised that I have spent months writing around this without naming it directly. In The One-Person Mini-Cult I described, without knowing I was doing it, a clinical case of Han: someone convinced by a flattering system that he had thought something profound. Cognitive self-exploitation in miniature, with a happy ending for the platform. In The Personal Myth and in A Machine of One's Own for a Small Web I reached the same place by the short route: do not write inside boxes whose key belongs to someone else; build tools you understand. Sovereignty over the substrate.",
+      "The question, then, is not whether AI thinks or whether it is going to kill us. Those are distractions. The question is the old one: who benefits from you using this in this way, and what remains inside you when you switch it off. If the answer is \"less than yesterday\", the problem is not the machine. It is the surrender.",
+      "And that, surrender, is the only thing Herbert wrote against."
+    ]
+  },
+  {
     "slug": "the-personal-myth",
     "title_es": "El mito personal",
     "title_en": "The Personal Myth",

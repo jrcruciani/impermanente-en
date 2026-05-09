@@ -300,7 +300,7 @@ def footer() -> str:
 
 def render_index(essays: list[dict]) -> str:
     title = "Impermanente — Selected Essays in English"
-    desc = "Seven selected essays by J.R. Cruciani, translated and edited from the Spanish originals."
+    desc = "Selected essays by J.R. Cruciani, translated and edited from the Spanish originals."
     body = head(title, desc, SITE_URL + "/", jsonld=[jsonld_website()])
     body += f"""<p class="edition-kicker">Selected essays in English</p>
 <p class="page-intro">A small English edition of Impermanente: memory, tools, cities, photography, systems, and the ways machines try to think on our behalf.</p>
