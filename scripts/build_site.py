@@ -186,7 +186,7 @@ def jsonld_website() -> dict:
 
 
 def jsonld_essay(essay: dict) -> dict:
-    return {
+    data = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "@id": essay_url(essay) + "#post",
@@ -201,15 +201,17 @@ def jsonld_essay(essay: dict) -> dict:
         "creator": {"@id": AUTHOR_ID},
         "publisher": {"@id": AUTHOR_ID},
         "license": LICENSE_URL,
-        "isBasedOn": essay["source_url"],
-        "translationOfWork": {
+        "keywords": essay.get("tags", []),
+    }
+    if essay.get("source_url") and essay.get("title_es"):
+        data["isBasedOn"] = essay["source_url"]
+        data["translationOfWork"] = {
             "@type": "BlogPosting",
             "name": essay["title_es"],
             "url": essay["source_url"],
             "inLanguage": "es",
-        },
-        "keywords": essay.get("tags", []),
-    }
+        }
+    return data
 
 
 def head(title: str, description: str, canonical: str, *, jsonld: list[dict] | None = None,
@@ -300,7 +302,7 @@ def footer() -> str:
 
 def render_index(essays: list[dict]) -> str:
     title = "Impermanente — Selected Essays in English"
-    desc = "Selected essays by J.R. Cruciani, translated and edited from the Spanish originals."
+    desc = "Selected essays by J.R. Cruciani in English."
     body = head(title, desc, SITE_URL + "/", jsonld=[jsonld_website()])
     body += f"""<p class="edition-kicker">Selected essays in English</p>
 <p class="page-intro">A small English edition of Impermanente: memory, tools, cities, photography, systems, and the ways machines try to think on our behalf.</p>
@@ -322,13 +324,15 @@ def render_index(essays: list[dict]) -> str:
 
 def render_essay(essay: dict, prev_essay: dict | None, next_essay: dict | None) -> str:
     title = f"{essay['title_en']} | Impermanente"
+    source_note = ""
+    if essay.get("source_url") and essay.get("title_es"):
+        source_note = f'  <p class="source-note">Translated and edited from <a href="{esc(essay["source_url"])}">{esc(essay["title_es"])}</a>.</p>\n'
     body = head(title, essay["summary"], essay_url(essay), jsonld=[jsonld_essay(essay)],
-                source_url=essay["source_url"], body_class="essay-page")
+                source_url=essay.get("source_url"), body_class="essay-page")
     body += f"""<article>
   <p class="edition-kicker">{fmt_date(essay['published_at'])}</p>
   <h1>{esc(essay['title_en'])}</h1>
-  <p class="source-note">Translated and edited from <a href="{esc(essay['source_url'])}">{esc(essay['title_es'])}</a>.</p>
-  <div class="article-body">
+{source_note}  <div class="article-body">
 """
     for paragraph in essay["body"]:
         body += f"    <p>{esc(paragraph)}</p>\n"
@@ -352,13 +356,16 @@ def render_feed(essays: list[dict]) -> str:
     items = ""
     for essay in essays:
         content = "".join(f"<p>{esc(p)}</p>" for p in essay["body"])
+        source = "\n"
+        if essay.get("source_url") and essay.get("title_es"):
+            source = f'      <source url="{xml(essay["source_url"])}">{xml(essay["title_es"])}</source>\n'
         items += f"""    <item>
       <title>{xml(essay['title_en'])}</title>
       <link>{essay_url(essay)}</link>
       <guid isPermaLink="true">{essay_url(essay)}</guid>
       <pubDate>{rfc822(essay['published_at'])}</pubDate>
       <description><![CDATA[{content}]]></description>
-      <source url="{xml(essay['source_url'])}">{xml(essay['title_es'])}</source>
+{source.rstrip()}
     </item>
 """
     return f"""<?xml version="1.0" encoding="UTF-8"?>
@@ -366,7 +373,7 @@ def render_feed(essays: list[dict]) -> str:
   <channel>
     <title>Impermanente — Selected Essays in English</title>
     <link>{SITE_URL}/</link>
-    <description>Selected essays by J.R. Cruciani, translated and edited from the Spanish originals.</description>
+    <description>Selected essays by J.R. Cruciani in English.</description>
     <language>en</language>
     <lastBuildDate>{rfc822(last)}</lastBuildDate>
     <atom:link href="{SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />

@@ -36,9 +36,11 @@ def main() -> None:
 
     slugs = set()
     for essay in essays:
-        for field in ("slug", "title_en", "title_es", "source_url", "published_at", "summary", "body"):
+        for field in ("slug", "title_en", "published_at", "summary", "body"):
             if not essay.get(field):
                 fail(f"{essay.get('slug', '<unknown>')} missing {field}")
+        if bool(essay.get("title_es")) != bool(essay.get("source_url")):
+            fail(f"{essay['slug']} has incomplete translation metadata")
         if essay["slug"] in slugs:
             fail(f"duplicate slug {essay['slug']}")
         slugs.add(essay["slug"])
