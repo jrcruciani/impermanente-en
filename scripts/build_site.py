@@ -20,7 +20,9 @@ PARENT_URL = "https://impermanente.es"
 PHOTOS_URL = "https://fotos.impermanente.es"
 AUTHOR_NAME = "J.R. Cruciani"
 AUTHOR_ID = "https://impermanente.es/about/#person"
-AVATAR_URL = "https://avatars.micro.blog/avatars/2025/36/1810674.jpg"
+# El avatar se sirve desde el propio blog. Antes apuntaba a
+# avatars.micro.blog, que deja de existir al cancelar la cuenta de Micro.blog.
+AVATAR_URL = f"{PARENT_URL}/uploads/avatar.jpg"
 LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/"
 
 
