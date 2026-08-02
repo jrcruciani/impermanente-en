@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robopsychology | Impermanente</title>
+<meta name="description" content="Robopsychology is a practical method for diagnosing language-model failures across model, runtime, and conversation instead of treating outputs as if they came from nowhere.">
+<meta name="author" content="J.R. Cruciani">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://en.impermanente.es/essays/robopsychology/">
+<link rel="alternate" hreflang="en" href="https://en.impermanente.es/essays/robopsychology/">
+
+<link rel="preload stylesheet" as="style" href="https://impermanente.es/css/fonts.css">
+<link rel="preload stylesheet" as="style" href="https://impermanente.es/css/main.css">
+<link rel="preload stylesheet" as="style" href="https://impermanente.es/css/photos-masonry.css">
+<link rel="preload stylesheet" as="style" href="https://impermanente.es/custom.css">
+<meta property="og:title" content="Robopsychology | Impermanente">
+<meta property="og:description" content="Robopsychology is a practical method for diagnosing language-model failures across model, runtime, and conversation instead of treating outputs as if they came from nowhere.">
+<meta property="og:url" content="https://en.impermanente.es/essays/robopsychology/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Impermanente — Selected Essays in English">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Robopsychology | Impermanente">
+<meta name="twitter:description" content="Robopsychology is a practical method for diagnosing language-model failures across model, runtime, and conversation instead of treating outputs as if they came from nowhere.">
+<link rel="alternate" type="application/rss+xml" href="https://en.impermanente.es/feed.xml" title="Impermanente — Selected Essays in English">
+<link rel="me" href="https://impermanente.es/">
+<style>
+/* English edition: small textual overrides on top of the Magnum theme. */
+main {
+  max-width: var(--text-width, 720px);
+  padding: 60px var(--gutter, 24px) 40px;
+}
+.edition-kicker {
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  margin: 0 0 16px;
+}
+.page-intro {
+  font-family: var(--serif);
+  font-size: 1.75rem;
+  font-weight: var(--weight-light, 300);
+  line-height: 1.6;
+  color: var(--text);
+  text-align: center;
+  margin: 0 auto 44px;
+}
+.essay-list {
+  list-style: none;
+  padding: 0;
+  margin: 48px 0;
+}
+.essay-list li {
+  border-top: 1px solid var(--separator);
+  padding: 28px 0;
+}
+.essay-list li:last-child {
+  border-bottom: 1px solid var(--separator);
+}
+.essay-list h2 {
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  font-weight: var(--weight-light, 300);
+  line-height: 1.2;
+  margin: 0 0 10px;
+}
+.essay-list h2 a {
+  color: var(--heading);
+  text-decoration: none;
+  border: 0;
+}
+.essay-list h2 a:hover {
+  color: var(--accent);
+}
+.essay-meta,
+.source-note,
+.tag-list {
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.essay-summary {
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  line-height: 1.55;
+  color: var(--text);
+  margin: 12px 0 0;
+}
+article h1 {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: var(--weight-light, 300);
+  line-height: 1.08;
+  text-align: center;
+  margin: 18px auto 14px;
+}
+.article-body {
+  margin-top: 44px;
+}
+.article-body p {
+  font-family: var(--serif);
+  font-size: 1.85rem;
+  font-weight: var(--weight-light, 300);
+  line-height: 1.62;
+  color: var(--text);
+  margin: 0 0 1.45em;
+}
+.article-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 70px 0 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--separator);
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.article-nav a,
+.source-note a {
+  color: var(--accent);
+  text-decoration: none;
+  border: 0;
+}
+.article-nav a:hover,
+.source-note a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+@media (max-width: 768px) {
+  main { padding: 40px 16px 30px; }
+  .article-body p { font-size: 1.65rem; }
+  .essay-list h2 { font-size: 2.2rem; }
+}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "@id": "https://en.impermanente.es/essays/robopsychology/#post", "headline": "Robopsychology", "name": "Robopsychology", "description": "Robopsychology is a practical method for diagnosing language-model failures across model, runtime, and conversation instead of treating outputs as if they came from nowhere.", "url": "https://en.impermanente.es/essays/robopsychology/", "datePublished": "2026-05-26T15:01:14+02:00", "dateModified": "2026-05-26T15:01:14+02:00", "inLanguage": "en", "author": {"@id": "https://impermanente.es/about/#person"}, "creator": {"@id": "https://impermanente.es/about/#person"}, "publisher": {"@id": "https://impermanente.es/about/#person"}, "license": "https://creativecommons.org/licenses/by/4.0/", "keywords": ["AI", "LLMs", "diagnostics", "robopsychology"]}</script>
+</head>
+<body class="essay-page">
+<header class="header">
+  <nav class="site-nav">
+    <h1 class="site-title"><a href="https://impermanente.es/" class="u-url">
+      <img src="https://impermanente.es/uploads/avatar.jpg" alt="" class="u-photo" id="avatar" width="28" height="28">impermanente
+    </a></h1>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="https://impermanente.es/about/">About</a></li>
+      <li class="nav-item"><a href="https://fotos.impermanente.es/">Photos</a></li>
+      <li class="nav-item"><a href="https://impermanente.es/viajes/">Travel</a></li>
+      <li class="nav-item"><a href="https://impermanente.es/lecturas/">Reading</a></li>
+      <li class="nav-item"><a href="https://impermanente.es/mastodon/">Shorts</a></li>
+      <li class="nav-item"><a href="https://impermanente.es/hispania-obscura/">Books</a></li>
+      <li class="nav-item"><a href="https://impermanente.es/loops/">Loops</a></li>
+    </ul>
+    <div class="hamburger" aria-label="Open menu" role="button" tabindex="0">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </nav>
+</header>
+<main>
+<article>
+  <p class="edition-kicker">26 May 2026</p>
+  <h1>Robopsychology</h1>
+  <div class="article-body">
+    <p>You ask a model to help you write a regular expression for filtering phishing in your company&#x27;s security pipeline. It refuses. Something about potential misuse. You are a security engineer. This is, in the most literal possible sense, your job. The refusal arrives in the same flat tone as every other refusal you have received this month, and once again you have no way to tell what produced it. Was it the model&#x27;s own training? A system prompt the vendor never showed you? A keyword in your query tripping a content filter you cannot see? The message gives you nothing. You cannot debug probability. You stare at it for a second, rephrase the question, and move on.</p>
+    <p>This little scene happens millions of times a day now, and it is the reason I have been writing, building and arguing for something I have started calling robopsychology. The word is not mine. Isaac Asimov coined it in 1950, when he invented Susan Calvin, a robopsychologist who did not reprogram robots and did not crack them open. She interpreted them. Each of Asimov&#x27;s stories is a small diagnostic exercise: a robot is behaving in a way that looks irrational, Calvin sits down with it, figures out which of the Three Laws is dominating and why the other two are getting suppressed, and writes up the case. The robots were never broken. The laws were colliding in a way nobody had thought through. Her job was to read the collision.</p>
+    <p>I think we owe the same labour to the systems we now delegate enormous chunks of our cognitive life to. The systems are not broken either. They are, very faithfully, doing what they were designed to do, which is not always what we hoped they would do. POSIWID applies to language models exactly as it applies to a tax code or a hiring funnel. The point of a system is what it does. When a model refuses a legitimate request, hedges a clear question, sycophantically agrees with something you said five minutes ago, or quietly omits the strongest objection to your plan, the system is producing the output it knows how to produce. The interesting question, and the one nobody is teaching practitioners to ask, is which part of the system produced it.</p>
+    <p>That question has a structural answer, and the answer is the load-bearing claim of the whole framework. Any single output from a hosted language model is the joint product of three layers. There is the model itself, with its training, its post-training, its values, its idiosyncrasies. There is the runtime, which includes the system prompt you never see, the content policies of the host, the tool permissions, the temperature, the context window management, the safety classifiers running in parallel. And there is the conversation, which is everything you and the model have said up to this turn, plus everything the model has inferred about you from that. Most failure modes in production are not failures of the model. They are collisions between the three layers, and they get attributed to whichever one the user happens to be looking at. The model gets blamed for refusals the host imposed. The prompt engineer gets blamed for drift the model trained for. The user gets blamed for sycophancy the conversation manufactured. Without a method for separating the three, every diagnosis is a guess wearing a verdict&#x27;s clothes.</p>
+    <p>The method itself is fairly mundane. Split the diagnosis in three before you commit to one. Label each claim you make about the system as observed or inferred, because the difference matters and the model itself will happily blur it for you. Prefer behavioural cross-checks, where you change one variable and watch what shifts, over introspective questions, where you ask the model to explain itself and accept its answer. Define what you expected before you start diagnosing, so that diagnosis becomes a measurable gap and not a vibes check. And use depth as a ratchet.</p>
+    <p>The ratchet is the one piece I want to dwell on, because it is the part that surprised me when it started working. The intuition is borrowed from an old idea about deception: truth is cheap because it can point backwards, lies are expensive because they have to keep rewriting the past. If you ask a system one diagnostic question, it can confabulate a plausible answer cheaply. If you ask it nine in sequence, each new answer has to remain consistent with the previous eight, and that consistency is metabolically expensive for a system that does not actually have a stable internal account of itself. Performed transparency tends to collapse around step four or five. Genuine transparency keeps pointing backwards without effort. You can watch this happen in transcripts, you can measure it with a coherence judge, and once you have seen it a few times you start reading models the way Calvin read robots. Not as oracles, not as black boxes, but as systems that leak their own structure when asked the right sequence of questions.</p>
+    <p>None of this opens the black box. A language model does not have privileged access to its weights, and its self-reports are reconstructions rather than confessions. The literature on this is unambiguous and I take it seriously. What guided introspection does is something more modest and, for the practitioner, more useful. It makes invisible defaults visible. It forces a stack-level diagnosis instead of a monocausal one. It separates what genuine continuity costs from what performed continuity costs, and lets you read the difference. It turns the question &quot;why did it do that?&quot; from a complaint into an investigation.</p>
+    <p>I am insisting on this because the alternative, which is the dominant one right now, is to keep delegating without diagnosing. I have written before about why I think the Butlerian Jihad was never about the machines, but about the human caste that had made itself indispensable by operating them, and about the abdication of judgement that comes when you stop being able to read your own tools. Robopsychology is a refusal of that abdication on a very small, very practical scale. You keep using the systems. You just stop pretending that their outputs come from nowhere. You sit down with the transcript, split it into three layers, label what you have observed and what you have inferred, run a cross-check, and decide whether the thing in front of you is a model problem, a host problem, or a problem you helped manufacture in the previous six turns.</p>
+    <p>The reference implementation lives at github.com/jrcruciani/robopsychology, a command-line tool that automates the playbook and produces structured reports. A more formal write-up is in preparation. The method does not need either of them to be useful. It needs a transcript, fifteen quiet minutes, and someone willing to treat the output in front of them as the visible end of a system they are allowed to read.</p>
+  </div>
+  <nav class="article-nav">
+    <a href="/essays/the-grammar-of-the-gods/">← Newer</a>
+    <a href="/essays/anatta-in-reverse/">Older →</a>
+  </nav>
+</article>
+</main>
+<footer>
+  <p>&copy;2023&nbsp;-&nbsp;2026 J.R. Cruciani</p>
+  <p>Selected essays in English. Original site: <a href="https://impermanente.es/">impermanente.es</a>.</p>
+  <p><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · Subscribe by <a href="https://en.impermanente.es/feed.xml">RSS</a></p>
+</footer>
+<script>
+(function(){
+  const h = document.querySelector('.hamburger');
+  const m = document.querySelector('.nav-menu');
+  if (!h || !m) return;
+  function toggle(){ h.classList.toggle('active'); m.classList.toggle('active'); }
+  h.addEventListener('click', toggle);
+  h.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+  document.querySelectorAll('.nav-menu a').forEach(a => a.addEventListener('click', () => {
+    h.classList.remove('active'); m.classList.remove('active');
+  }));
+})();
+</script>
+</body>
+</html>

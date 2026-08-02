@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Company Veteran | Impermanente</title>
+<meta name="description" content="Nadella argues the value in AI isn&#x27;t the smartest model but owning the learning loop on top of it: the &#x27;company veteran&#x27; of tacit knowledge. I&#x27;ve been doing exactly that at the scale of one person and a VPS, with open formats, my own infrastructure, and an assistant married to no model.">
+<meta name="author" content="J.R. Cruciani">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://en.impermanente.es/essays/the-company-veteran/">
+<link rel="alternate" hreflang="en" href="https://en.impermanente.es/essays/the-company-veteran/">
+<link rel="alternate" hreflang="es" href="https://impermanente.es/2026/06/14/el-veterano-de-la-empresa.html">
+<link rel="preload stylesheet" as="style" href="https://impermanente.es/css/fonts.css">
+<link rel="preload stylesheet" as="style" href="https://impermanente.es/css/main.css">
+<link rel="preload stylesheet" as="style" href="https://impermanente.es/css/photos-masonry.css">
+<link rel="preload stylesheet" as="style" href="https://impermanente.es/custom.css">
+<meta property="og:title" content="The Company Veteran | Impermanente">
+<meta property="og:description" content="Nadella argues the value in AI isn&#x27;t the smartest model but owning the learning loop on top of it: the &#x27;company veteran&#x27; of tacit knowledge. I&#x27;ve been doing exactly that at the scale of one person and a VPS, with open formats, my own infrastructure, and an assistant married to no model.">
+<meta property="og:url" content="https://en.impermanente.es/essays/the-company-veteran/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Impermanente — Selected Essays in English">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The Company Veteran | Impermanente">
+<meta name="twitter:description" content="Nadella argues the value in AI isn&#x27;t the smartest model but owning the learning loop on top of it: the &#x27;company veteran&#x27; of tacit knowledge. I&#x27;ve been doing exactly that at the scale of one person and a VPS, with open formats, my own infrastructure, and an assistant married to no model.">
+<link rel="alternate" type="application/rss+xml" href="https://en.impermanente.es/feed.xml" title="Impermanente — Selected Essays in English">
+<link rel="me" href="https://impermanente.es/">
+<style>
+/* English edition: small textual overrides on top of the Magnum theme. */
+main {
+  max-width: var(--text-width, 720px);
+  padding: 60px var(--gutter, 24px) 40px;
+}
+.edition-kicker {
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  margin: 0 0 16px;
+}
+.page-intro {
+  font-family: var(--serif);
+  font-size: 1.75rem;
+  font-weight: var(--weight-light, 300);
+  line-height: 1.6;
+  color: var(--text);
+  text-align: center;
+  margin: 0 auto 44px;
+}
+.essay-list {
+  list-style: none;
+  padding: 0;
+  margin: 48px 0;
+}
+.essay-list li {
+  border-top: 1px solid var(--separator);
+  padding: 28px 0;
+}
+.essay-list li:last-child {
+  border-bottom: 1px solid var(--separator);
+}
+.essay-list h2 {
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  font-weight: var(--weight-light, 300);
+  line-height: 1.2;
+  margin: 0 0 10px;
+}
+.essay-list h2 a {
+  color: var(--heading);
+  text-decoration: none;
+  border: 0;
+}
+.essay-list h2 a:hover {
+  color: var(--accent);
+}
+.essay-meta,
+.source-note,
+.tag-list {
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.essay-summary {
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  line-height: 1.55;
+  color: var(--text);
+  margin: 12px 0 0;
+}
+article h1 {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: var(--weight-light, 300);
+  line-height: 1.08;
+  text-align: center;
+  margin: 18px auto 14px;
+}
+.article-body {
+  margin-top: 44px;
+}
+.article-body p {
+  font-family: var(--serif);
+  font-size: 1.85rem;
+  font-weight: var(--weight-light, 300);
+  line-height: 1.62;
+  color: var(--text);
+  margin: 0 0 1.45em;
+}
+.article-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 70px 0 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--separator);
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.article-nav a,
+.source-note a {
+  color: var(--accent);
+  text-decoration: none;
+  border: 0;
+}
+.article-nav a:hover,
+.source-note a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+@media (max-width: 768px) {
+  main { padding: 40px 16px 30px; }
+  .article-body p { font-size: 1.65rem; }
+  .essay-list h2 { font-size: 2.2rem; }
+}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "@id": "https://en.impermanente.es/essays/the-company-veteran/#post", "headline": "The Company Veteran", "name": "The Company Veteran", "description": "Nadella argues the value in AI isn't the smartest model but owning the learning loop on top of it: the 'company veteran' of tacit knowledge. I've been doing exactly that at the scale of one person and a VPS, with open formats, my own infrastructure, and an assistant married to no model.", "url": "https://en.impermanente.es/essays/the-company-veteran/", "datePublished": "2026-06-14T21:09:49+02:00", "dateModified": "2026-06-14T21:09:49+02:00", "inLanguage": "en", "author": {"@id": "https://impermanente.es/about/#person"}, "creator": {"@id": "https://impermanente.es/about/#person"}, "publisher": {"@id": "https://impermanente.es/about/#person"}, "license": "https://creativecommons.org/licenses/by/4.0/", "keywords": ["AI", "digital sovereignty", "open formats", "Microsoft"], "isBasedOn": "https://impermanente.es/2026/06/14/el-veterano-de-la-empresa.html", "translationOfWork": {"@type": "BlogPosting", "name": "El veterano de la empresa", "url": "https://impermanente.es/2026/06/14/el-veterano-de-la-empresa.html", "inLanguage": "es"}}</script>
+</head>
+<body class="essay-page">
+<header class="header">
+  <nav class="site-nav">
+    <h1 class="site-title"><a href="https://impermanente.es/" class="u-url">
+      <img src="https://impermanente.es/uploads/avatar.jpg" alt="" class="u-photo" id="avatar" width="28" height="28">impermanente
+    </a></h1>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="https://impermanente.es/about/">About</a></li>
+      <li class="nav-item"><a href="https://fotos.impermanente.es/">Photos</a></li>
+      <li class="nav-item"><a href="https://impermanente.es/viajes/">Travel</a></li>
+      <li class="nav-item"><a href="https://impermanente.es/lecturas/">Reading</a></li>
+      <li class="nav-item"><a href="https://impermanente.es/mastodon/">Shorts</a></li>
+      <li class="nav-item"><a href="https://impermanente.es/hispania-obscura/">Books</a></li>
+      <li class="nav-item"><a href="https://impermanente.es/loops/">Loops</a></li>
+    </ul>
+    <div class="hamburger" aria-label="Open menu" role="button" tabindex="0">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </nav>
+</header>
+<main>
+<article>
+  <p class="edition-kicker">14 Jun 2026</p>
+  <h1>The Company Veteran</h1>
+  <p class="source-note">Translated and edited from <a href="https://impermanente.es/2026/06/14/el-veterano-de-la-empresa.html">El veterano de la empresa</a>.</p>
+  <div class="article-body">
+    <p>Today Satya Nadella, CEO of Microsoft, published a piece on his blog titled &quot;A frontier without an ecosystem is not stable,&quot; where he lays out how he pictures his company in an economy driven by AI. What he says, in short, is that it isn&#x27;t about which model is smarter, but about who owns what.</p>
+    <p>His thesis is simple: the value isn&#x27;t in picking the best model to build your solutions on top of, but in owning the learning loop you assemble on top of the models. He even proposes a test for whether you really control your part: being able to swap one general-purpose model for another without losing the &quot;company veteran,&quot; that tacit knowledge your organization has accumulated inside its own system.</p>
+    <p>I agree. So much so that I&#x27;ve been doing it for months. Only not at the scale of a multinational, but at the scale of one person and a VPS at Hetzner. Seen from down here, it looks like this.</p>
+    <p>My assistant, Hermes, isn&#x27;t married to any model. Today, as I write this, it runs on Claude, but tomorrow I can switch providers with a single line of configuration. What doesn&#x27;t change is the layer on top: my skills, the procedures I&#x27;ve distilled; my memory, what it knows about me and how I work; my pipelines. All of that lives in open formats, on my infrastructure, outside the model. The &quot;company veteran&quot; Satya talks about is, in my case, myself, encapsulated in that layer.</p>
+    <p>It isn&#x27;t theory. Just today, in fact, Hermes&#x27;s web tools were down. The model had no idea how to get around it, but I had the plan B documented in a skill: fall back on curl, on the browser, on a couple of alternative endpoints. The work went on without missing a beat. The knowledge of how to manage wasn&#x27;t in the model but on my side of the equation.</p>
+    <p>There&#x27;s a line of his I&#x27;m keeping whole: you can delegate a task, even a whole job, but you can never delegate your learning. It holds for a company of fifty thousand people and it holds for one person with a server. If you outsource the task and on top of that let the learning stay in someone else&#x27;s model, you haven&#x27;t saved work. You&#x27;ve given away your advantage.</p>
+    <p>Satya also writes that human capital &quot;only becomes more valuable&quot; as AI grows. Let&#x27;s hope so. But what I don&#x27;t doubt is that owning your learning loop doesn&#x27;t guarantee that we all win. It&#x27;s, at most, the condition for not being the one who loses. Sovereignty doesn&#x27;t hand out the future fairly on its own; it only gives you a place to keep standing when the ground moves.</p>
+    <p>That&#x27;s why I insist, post after post, on the same things: open formats, your own infrastructure, modularity. Not out of textbook purism, but because it&#x27;s the only version of this story in which the company veteran is still yours when the model of the day changes. And a lot of models, and a lot of other things, are going to change.</p>
+  </div>
+  <nav class="article-nav">
+    <a href="/essays/the-last-wish/">← Newer</a>
+    <a href="/essays/the-grammar-of-the-gods/">Older →</a>
+  </nav>
+</article>
+</main>
+<footer>
+  <p>&copy;2023&nbsp;-&nbsp;2026 J.R. Cruciani</p>
+  <p>Selected essays in English. Original site: <a href="https://impermanente.es/">impermanente.es</a>.</p>
+  <p><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · Subscribe by <a href="https://en.impermanente.es/feed.xml">RSS</a></p>
+</footer>
+<script>
+(function(){
+  const h = document.querySelector('.hamburger');
+  const m = document.querySelector('.nav-menu');
+  if (!h || !m) return;
+  function toggle(){ h.classList.toggle('active'); m.classList.toggle('active'); }
+  h.addEventListener('click', toggle);
+  h.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+  document.querySelectorAll('.nav-menu a').forEach(a => a.addEventListener('click', () => {
+    h.classList.remove('active'); m.classList.remove('active');
+  }));
+})();
+</script>
+</body>
+</html>
