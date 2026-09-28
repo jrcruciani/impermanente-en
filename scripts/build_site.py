@@ -27,7 +27,6 @@ BIO_EN = ("J.R. Cruciani is a Madrid-based photographer and member of the Royal 
 REL_ME = [
     "https://masto.impermanente.es/@jrcruciani",
     "https://bsky.app/profile/jrcruciani.eurosky.social",
-    "https://pixelfed.social/HispaniaObscura",
     "https://commons.wikimedia.org/wiki/User:JRCruciani",
     "https://github.com/Jrcruciani",
 ]
