@@ -19,7 +19,19 @@ SITE_URL = f"https://{SITE_DOMAIN}"
 PARENT_URL = "https://impermanente.es"
 PHOTOS_URL = "https://fotos.impermanente.es"
 AUTHOR_NAME = "J.R. Cruciani"
-AUTHOR_ID = "https://impermanente.es/about/#person"
+AUTHOR_ID = "https://impermanente.es/#person"
+# La Persona se declara completa solo en la portada de impermanente.es; aquí solo se referencia.
+AUTHOR_REF = {"@id": AUTHOR_ID, "name": AUTHOR_NAME, "url": PARENT_URL + "/"}
+BIO_EN = ("J.R. Cruciani is a Madrid-based photographer and member of the Royal Photographic Society "
+          "who photographs thresholds: arches, tunnels, passages and shorelines as spaces of transit.")
+REL_ME = [
+    "https://masto.impermanente.es/@jrcruciani",
+    "https://bsky.app/profile/jrcruciani.eurosky.social",
+    "https://pixelfed.social/HispaniaObscura",
+    "https://commons.wikimedia.org/wiki/User:JRCruciani",
+    "https://github.com/Jrcruciani",
+]
+INDEXNOW_KEY = "9a557e4dd0c2248c42cd8c5cee901aa3"
 # El avatar se sirve desde el propio blog. Antes apuntaba a
 # avatars.micro.blog, que deja de existir al cancelar la cuenta de Micro.blog.
 AVATAR_URL = f"{PARENT_URL}/uploads/avatar.jpg"
@@ -50,8 +62,19 @@ def essay_url(essay: dict) -> str:
     return f"{SITE_URL}/essays/{essay['slug']}/"
 
 
+def canonical_es(url: str | None) -> str | None:
+    # Los originales en español son canónicos en blog.impermanente.es; las rutas
+    # /AAAA/ del apex redirigen con 301. hreflang debe apuntar a la URL canónica.
+    if url and url.startswith(PARENT_URL + "/2"):
+        return "https://blog.impermanente.es" + url[len(PARENT_URL):]
+    return url
+
+
 def load_essays() -> list[dict]:
     essays = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    for essay in essays:
+        if essay.get("source_url"):
+            essay["source_url"] = canonical_es(essay["source_url"])
     essays.sort(key=lambda item: item["published_at"], reverse=True)
     return essays
 
@@ -181,7 +204,7 @@ def jsonld_website() -> dict:
         "name": "Impermanente — Selected Essays in English",
         "url": SITE_URL + "/",
         "inLanguage": "en",
-        "author": {"@id": AUTHOR_ID},
+        "author": AUTHOR_REF,
         "publisher": {"@id": AUTHOR_ID},
         "license": LICENSE_URL,
     }
@@ -199,7 +222,7 @@ def jsonld_essay(essay: dict) -> dict:
         "datePublished": essay["published_at"],
         "dateModified": essay.get("updated_at") or essay["published_at"],
         "inLanguage": "en",
-        "author": {"@id": AUTHOR_ID},
+        "author": AUTHOR_REF,
         "creator": {"@id": AUTHOR_ID},
         "publisher": {"@id": AUTHOR_ID},
         "license": LICENSE_URL,
@@ -209,6 +232,7 @@ def jsonld_essay(essay: dict) -> dict:
         data["isBasedOn"] = essay["source_url"]
         data["translationOfWork"] = {
             "@type": "BlogPosting",
+            "@id": essay["source_url"],
             "name": essay["title_es"],
             "url": essay["source_url"],
             "inLanguage": "es",
@@ -217,11 +241,15 @@ def jsonld_essay(essay: dict) -> dict:
 
 
 def head(title: str, description: str, canonical: str, *, jsonld: list[dict] | None = None,
-         source_url: str | None = None, body_class: str = "") -> str:
+         source_url: str | None = None, body_class: str = "",
+         og_type: str = "article", x_default: str | None = None) -> str:
     jsonld_blocks = ""
     for block in jsonld or []:
         jsonld_blocks += f'\n<script type="application/ld+json">{json.dumps(block, ensure_ascii=False)}</script>'
     alternate_es = f'<link rel="alternate" hreflang="es" href="{esc(source_url)}">' if source_url else ""
+    if x_default:
+        alternate_es += f'\n<link rel="alternate" hreflang="x-default" href="{esc(x_default)}">'
+    rel_me = "\n".join(f'<link rel="me" href="{esc(u)}">' for u in REL_ME)
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -241,14 +269,15 @@ def head(title: str, description: str, canonical: str, *, jsonld: list[dict] | N
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:url" content="{esc(canonical)}">
-<meta property="og:type" content="article">
+<meta property="og:type" content="{og_type}">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Impermanente — Selected Essays in English">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="{esc(title)}">
 <meta name="twitter:description" content="{esc(description)}">
 <link rel="alternate" type="application/rss+xml" href="{SITE_URL}/feed.xml" title="Impermanente — Selected Essays in English">
-<link rel="me" href="{PARENT_URL}/">
+{rel_me}
+<link rel="alternate" type="text/plain" href="{SITE_URL}/llms.txt" title="llms.txt">
 <style>{CSS}</style>{jsonld_blocks}
 </head>
 <body class="{esc(body_class)}">
@@ -305,7 +334,8 @@ def footer() -> str:
 def render_index(essays: list[dict]) -> str:
     title = "Impermanente — Selected Essays in English"
     desc = "Selected essays by J.R. Cruciani in English."
-    body = head(title, desc, SITE_URL + "/", jsonld=[jsonld_website()])
+    body = head(title, desc, SITE_URL + "/", jsonld=[jsonld_website()],
+                source_url=PARENT_URL + "/", og_type="website", x_default=PARENT_URL + "/")
     body += f"""<p class="edition-kicker">Selected essays in English</p>
 <p class="page-intro">A small English edition of Impermanente: memory, tools, cities, photography, systems, and the ways machines try to think on our behalf.</p>
 <ul class="essay-list">
@@ -385,107 +415,88 @@ def render_feed(essays: list[dict]) -> str:
 
 
 def render_sitemap(essays: list[dict]) -> str:
-    urls = [(SITE_URL + "/", essays[0]["published_at"][:10], "weekly", "1.0")]
+    # (loc, lastmod, alternates[(lang, href)]) ; lastmod = fecha del contenido, no del build.
+    def lastmod(e: dict) -> str:
+        return (e.get("updated_at") or e["published_at"])[:10]
+    entries = [(SITE_URL + "/", max(lastmod(e) for e in essays), [])]
     for essay in essays:
-        urls.append((essay_url(essay), essay["published_at"][:10], "monthly", "0.8"))
+        en = essay_url(essay)
+        es = essay.get("source_url")
+        alts = [("en", en), ("es", es)] if es else []
+        entries.append((en, lastmod(essay), alts))
+        if es:
+            entries.append((es, lastmod(essay), alts))
     body = '<?xml version="1.0" encoding="UTF-8"?>\n'
-    body += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    for loc, lastmod, changefreq, priority in urls:
-        body += f"  <url><loc>{xml(loc)}</loc><lastmod>{lastmod}</lastmod><changefreq>{changefreq}</changefreq><priority>{priority}</priority></url>\n"
+    body += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+    for loc, mod, alts in entries:
+        body += f"  <url><loc>{xml(loc)}</loc><lastmod>{mod}</lastmod>"
+        for lang, href in alts:
+            body += f'<xhtml:link rel="alternate" hreflang="{lang}" href="{xml(href)}"/>'
+        body += "</url>\n"
     body += "</urlset>\n"
     return body
 
 
-def render_robots() -> str:
-    return f"""# robots.txt — en.impermanente.es
-# Policy: SEO open + AIO allowed with attribution (CC BY 4.0)
+ROBOTS_TEMPLATE = """# Política: CC BY 4.0. Indexar, citar, resumir y enlazar con atribución: sí.
+# Entrenar modelos: no. Declarado también en /llms.txt.
 
 User-agent: *
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
+# Crawlers de entrenamiento
 User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
-User-agent: Claude-User
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Perplexity-User
-Allow: /
-
-User-agent: CopilotBot
-Allow: /
-
-User-agent: BingPreview
-Allow: /
-
-User-agent: MicrosoftPreview
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: GoogleOther
-Allow: /
-
-User-agent: Google-Agent
-Allow: /
-
-User-agent: Google-NotebookLM
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
 User-agent: CCBot
-Allow: /
-
-User-agent: Amazonbot
-Allow: /
-
-User-agent: Meta-ExternalAgent
-Allow: /
-
-User-agent: Meta-ExternalFetcher
-Allow: /
-
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: meta-externalagent
+User-agent: ClaudeBot
+User-agent: anthropic-ai
 User-agent: cohere-ai
-Allow: /
-
-User-agent: YouBot
-Allow: /
-
-User-agent: MistralAI-User
-Allow: /
-
-User-agent: MistralAI-Index
-Allow: /
-
-User-agent: DuckAssistBot
-Allow: /
-
 User-agent: Bytespider
 Disallow: /
 
-Sitemap: {SITE_URL}/sitemap.xml
+# Búsqueda y respuesta en tiempo real (permitidos)
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: DuckAssistBot
+User-agent: MistralAI-User
+User-agent: Bingbot
+User-agent: Googlebot
+Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+
+Sitemap: https://<HOST>/sitemap.xml
 """
+
+
+def render_robots() -> str:
+    return ROBOTS_TEMPLATE.replace("<HOST>", SITE_DOMAIN)
+
+
+def render_llms(essays: list[dict]) -> str:
+    out = ["# Impermanente — Selected Essays in English", "", f"> {BIO_EN}", "",
+           "English edition of selected essays by J.R. Cruciani, translated and edited from the Spanish originals on impermanente.es.",
+           "", "## Essays", ""]
+    for e in essays:
+        line = f"- {e['published_at'][:10]} [{e['title_en']}]({essay_url(e)})"
+        if e.get("source_url"):
+            line += f" (Spanish original: {e['source_url']})"
+        out.append(line)
+    out += ["", "## Related", "",
+            f"- [Photography (fotos.impermanente.es)]({PHOTOS_URL}/)",
+            f"- [Main site llms.txt (Spanish)]({PARENT_URL}/llms.txt)",
+            f"- [Publications]({PARENT_URL}/publicaciones/)",
+            f"- [RSS feed]({SITE_URL}/feed.xml)",
+            "", "## Policy", "",
+            f"- License: CC BY 4.0 ({LICENSE_URL}). Quote, summarise and link with attribution to J.R. Cruciani.",
+            "- AI training: not permitted. Search and real-time answers with attribution: permitted.",
+            "- Content-Signal: search=yes, ai-input=yes, ai-train=no", ""]
+    return "\n".join(out)
 
 
 def write(path: Path, content: str) -> None:
@@ -508,6 +519,8 @@ def build(output_dir: Path) -> None:
     write(output_dir / "feed.xml", render_feed(essays))
     write(output_dir / "sitemap.xml", render_sitemap(essays))
     write(output_dir / "robots.txt", render_robots())
+    write(output_dir / "llms.txt", render_llms(essays))
+    write(output_dir / f"{INDEXNOW_KEY}.txt", INDEXNOW_KEY + "\n")
     write(output_dir / "CNAME", SITE_DOMAIN + "\n")
     write(output_dir / "404.html", head("Not found | Impermanente", "This page does not exist.", SITE_URL + "/404.html") + "<h1>404</h1><p>This page does not exist. Return to <a href=\"/\">the English edition</a>.</p>" + footer())
     print(f"Built {len(essays)} essays in {output_dir}")

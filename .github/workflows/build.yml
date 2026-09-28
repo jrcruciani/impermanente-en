@@ -32,6 +32,9 @@ jobs:
       - name: Validate output
         run: python3 scripts/qa_translation.py
 
+      - name: AIO tests (llms.txt, sitemap, robots)
+        run: python3 scripts/test_aio.py
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
