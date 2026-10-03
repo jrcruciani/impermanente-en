@@ -1,0 +1,36 @@
+# Impermanente — Selected Essays in English
+
+> J.R. Cruciani is a Madrid-based photographer and member of the Royal Photographic Society who photographs thresholds: arches, tunnels, passages and shorelines as spaces of transit.
+
+English edition of selected essays by J.R. Cruciani, translated and edited from the Spanish originals on impermanente.es.
+
+## Essays
+
+- 2026-07-04 [The Mirror Has an Accent](https://en.impermanente.es/essays/the-mirror-has-an-accent/) (Spanish original: https://blog.impermanente.es/2026/07/04/el-espejo-tiene-acento.html)
+- 2026-06-28 [Outside the Box, Another Box](https://en.impermanente.es/essays/outside-the-box-another-box/) (Spanish original: https://blog.impermanente.es/2026/06/28/fuera-de-la-caja-hay.html)
+- 2026-06-19 [The Last Wish](https://en.impermanente.es/essays/the-last-wish/) (Spanish original: https://blog.impermanente.es/2026/06/19/el-ltimo-deseo.html)
+- 2026-06-14 [The Company Veteran](https://en.impermanente.es/essays/the-company-veteran/) (Spanish original: https://blog.impermanente.es/2026/06/14/el-veterano-de-la-empresa.html)
+- 2026-05-31 [The Grammar of the Gods](https://en.impermanente.es/essays/the-grammar-of-the-gods/) (Spanish original: https://blog.impermanente.es/2026/05/31/la-gramtica-de-los-dioses.html)
+- 2026-05-26 [Robopsychology](https://en.impermanente.es/essays/robopsychology/)
+- 2026-05-10 [Anatta in Reverse](https://en.impermanente.es/essays/anatta-in-reverse/) (Spanish original: https://blog.impermanente.es/2026/05/10/anatta-a-la-inversa.html)
+- 2026-05-07 [The Jihad Was Not Against the Machines](https://en.impermanente.es/essays/the-jihad-was-not-against-the-machines/) (Spanish original: https://blog.impermanente.es/2026/05/07/la-jihad-no-era-contra.html)
+- 2026-05-04 [The Personal Myth](https://en.impermanente.es/essays/the-personal-myth/) (Spanish original: https://blog.impermanente.es/2026/05/04/el-mito-personal.html)
+- 2026-04-21 [The One-Person Mini-Cult](https://en.impermanente.es/essays/the-one-person-mini-cult/) (Spanish original: https://blog.impermanente.es/2026/04/21/el-miniculto-de-uno.html)
+- 2026-04-18 [The End of One Size Fits All](https://en.impermanente.es/essays/the-end-of-one-size-fits-all/) (Spanish original: https://blog.impermanente.es/2026/04/18/el-fin-del-one-size.html)
+- 2026-04-01 [This Is Not It Either](https://en.impermanente.es/essays/this-is-not-it-either/) (Spanish original: https://blog.impermanente.es/2026/04/01/aqu-tampoco-es.html)
+- 2026-02-28 [Personal Digital Sovereignty](https://en.impermanente.es/essays/personal-digital-sovereignty/) (Spanish original: https://blog.impermanente.es/2026/02/28/soberana-digital-personal.html)
+- 2026-02-18 [On Why I Take Photographs](https://en.impermanente.es/essays/why-i-take-photographs/) (Spanish original: https://blog.impermanente.es/2026/02/18/sobre-el-por-qu-tomo.html)
+- 2025-10-29 [The Machine Is Not Broken](https://en.impermanente.es/essays/the-machine-is-not-broken/) (Spanish original: https://blog.impermanente.es/2025/10/29/la-mquina-no-est-rota.html)
+
+## Related
+
+- [Photography (fotos.impermanente.es)](https://fotos.impermanente.es/)
+- [Main site llms.txt (Spanish)](https://impermanente.es/llms.txt)
+- [Publications](https://impermanente.es/publicaciones/)
+- [RSS feed](https://en.impermanente.es/feed.xml)
+
+## Policy
+
+- License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Quote, summarise and link with attribution to J.R. Cruciani.
+- AI training: not permitted. Search and real-time answers with attribution: permitted.
+- Content-Signal: search=yes, ai-input=yes, ai-train=no
