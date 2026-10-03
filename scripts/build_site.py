@@ -4,6 +4,7 @@ import argparse
 import email.utils
 import html
 import json
+import re
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
@@ -500,7 +501,47 @@ def render_llms(essays: list[dict]) -> str:
 
 def write(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    if path.suffix == ".html":
+        content = add_csp_meta(content)
     path.write_text(content, encoding="utf-8")
+
+
+# GitHub Pages no permite cabeceras HTTP propias: la CSP va en <meta>, con
+# hashes calculados aquí en cada build. Protección PARCIAL: <meta> ignora
+# frame-ancestors (clickjacking), report-uri y sandbox.
+_SCRIPT_RE = re.compile(r"<script\b([^>]*)>(.*?)</script>", re.S | re.I)
+_STYLE_RE = re.compile(r"<style\b[^>]*>(.*?)</style>", re.S | re.I)
+
+
+def _sha(s: str) -> str:
+    import base64, hashlib
+    return "'sha256-" + base64.b64encode(hashlib.sha256(s.encode("utf-8")).digest()).decode() + "'"
+
+
+def add_csp_meta(html: str) -> str:
+    if re.search(r"\sstyle=[\"']", html):
+        raise SystemExit("CSP: atributo style= inline no previsto; usar clases")
+    scripts = sorted({_sha(b) for a, b in _SCRIPT_RE.findall(html)
+                      if "src=" not in a.lower() and "ld+json" not in a.lower() and b.strip()})
+    styles = sorted({_sha(b) for b in _STYLE_RE.findall(html)})
+    # Los CSS/fuentes se piden al apex y este los redirige 301 al blog.
+    hosts = "https://impermanente.es https://blog.impermanente.es"
+    policy = "; ".join([
+        "default-src 'self'",
+        "script-src " + " ".join(["'self'"] + scripts),
+        "style-src " + " ".join(["'self'", hosts] + styles),
+        f"font-src 'self' {hosts}",
+        f"img-src 'self' data: {hosts} https://fotos.impermanente.es",
+        "connect-src 'self'",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "form-action 'self'",
+        "upgrade-insecure-requests",
+    ])
+    assert "unsafe-inline" not in policy and "unsafe-eval" not in policy
+    meta = f'<meta http-equiv="Content-Security-Policy" content="{policy}">\n'
+    meta += '<meta name="referrer" content="strict-origin-when-cross-origin">\n'
+    return html.replace('<meta charset="utf-8">\n', '<meta charset="utf-8">\n' + meta, 1)
 
 
 def build(output_dir: Path) -> None:
