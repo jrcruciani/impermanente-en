@@ -10,7 +10,7 @@
 
 Static English edition for `https://en.impermanente.es/`.
 
-It publishes selected essays by J.R. Cruciani in English, including translated and edited pieces from the Spanish originals at `https://impermanente.es/`. The site is independent from the Spanish Micro.blog feed and from `fotos.impermanente.es`.
+It publishes selected essays by J.R. Cruciani in English, including translated and edited pieces from the Spanish originals at `https://impermanente.es/`. The site is independent from the Spanish blog feed and from `fotos.impermanente.es`.
 
 ## Build
 

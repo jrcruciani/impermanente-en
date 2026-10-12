@@ -32,8 +32,7 @@ REL_ME = [
     "https://github.com/Jrcruciani",
 ]
 INDEXNOW_KEY = "9a557e4dd0c2248c42cd8c5cee901aa3"
-# El avatar se sirve desde el propio blog. Antes apuntaba a
-# avatars.micro.blog, que deja de existir al cancelar la cuenta de Micro.blog.
+# El avatar se sirve desde el propio blog.
 AVATAR_URL = f"{PARENT_URL}/uploads/avatar.jpg"
 LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/"
 
